@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
-import { Menu } from './components/menu/Menu';
+ import { Menu } from './components/menu/Menu';
 import Auth from './pages/Auth';
 import Home from './pages/Home';
 import { ApplicationContext, ApplicationProvider } from './domain/application.store';
