@@ -54,8 +54,11 @@ export function unlikePicture(pictureID) {
 }
 
 export function commentPicture(pictureID) {
-    return fetch(`/api/pictures/${pictureID}/unlike`, {
-        method: 'PUT'
+    return fetch(`/api/pictures/comment/${pictureID}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
         .then(async res => {
             if (res.status !== 200 && res.status !== 201) {

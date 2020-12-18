@@ -53,7 +53,7 @@ export function Card({ picture }) {
 
                     <ul>
                         {picture.comments.map(comment =>
-                            <li>{comment.comment}</li>
+                            <li>{comment.by.name}: {comment.comment}</li>
                         )}
                     </ul>
                     <input type="text" onChange={handleChange} />
