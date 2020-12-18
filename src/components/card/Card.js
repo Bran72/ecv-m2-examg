@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ApplicationContext } from '../../domain/application.store';
-import { LikePictureById } from '../../domain/picture/picture.actions';
+import { LikePictureById, UnlikePictureById } from '../../domain/picture/picture.actions';
 import { LikeButton, BookmarkButton } from '../buttons';
 import './Card.css';
 
@@ -10,8 +10,13 @@ export function Card({ picture }) {
 
     const onLike = (pictureId) => {
         console.log(pictureId)
-        console.log(state.user)
-        LikePictureById(dispatch, pictureId)
+
+        if (picture.likedBy && picture.likedBy.find(like => like === state.user._id)) {
+            console.log('unlike')
+            UnlikePictureById(dispatch, pictureId)
+        } else {
+            LikePictureById(dispatch, pictureId)
+        }
     }
 
 
@@ -20,9 +25,7 @@ export function Card({ picture }) {
         <div className="card">
             <div className="card-img">
                 <img src={picture.download_url} />
-                <LikeButton onClick={() => { onLike(picture.id) }} isLiked={() => {
-                    picture.likedBy && picture.likedBy.find(like => like === state.user._id)
-                }} />
+                <LikeButton onClick={() => { onLike(picture.id) }} isLiked={picture.likedBy && picture.likedBy.find(like => like === state.user._id)} />
                 <span className="likes">Likes : {picture.likedBy ? picture.likedBy.length : 0}</span>
                 <BookmarkButton onClick={() => { }} />
             </div>

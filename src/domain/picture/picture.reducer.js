@@ -15,13 +15,13 @@ export default function reducer(state, action) {
             }
         case types.PICTURE_LIKED:
             const { pictures } = state;
-            const idx = pictures.findIndex(picture => picture.id === action.payload.id);
-            pictures[idx] = action.payload;
+            const idx = pictures.findIndex(picture => picture.picsum_id === action.payload.picsum_id);
+            pictures[idx] = { ...pictures[idx], ...action.payload };
             return {
                 ...state,
                 pending: false,
                 pictures: [...pictures]
-            }
+            };
         case types.PICTURE_FAILED:
             return {
                 ...state,
