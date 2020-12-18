@@ -4,15 +4,16 @@ import {
     likePicture,
     unlikePicture,
     commentPicture,
-    updateCommentPicture
+    updateCommentPicture,
+    bookmarkPicture,
+    unbookmarkPicture
 } from './picture.service';
 
 export const types = {
     PICTURE_STARTED: 'PICTURE_STARTED',
     PICTURE_DONE: 'PICTURE_DONE',
-    PICTURE_LIKED: 'PICTURE_LIKED',
-    PICTURE_COMMENTED: 'PICTURE_COMMENTED',
-    PICTURE_UNLIKED: 'PICTURE_UNLIKED',
+    PICTURE_UPDATED: 'PICTURE_UPDATED',
+    PICTURE_BOOKMARKED: 'PICTURE_BOOKMARKED',
     PICTURE_FAILED: 'PICTURE_FAILED'
 }
 
@@ -33,28 +34,42 @@ export function fetchPictureById(dispatch, pictureId) {
 export function LikePictureById(dispatch, pictureId) {
     dispatch(_started());
     likePicture(pictureId)
-        .then(picture => dispatch(_onLiked(picture)))
+        .then(picture => dispatch(_onUpdate(picture)))
         .catch(error => dispatch(_onError(error)));
 }
 
 export function UnlikePictureById(dispatch, pictureId) {
     dispatch(_started());
     unlikePicture(pictureId)
-        .then(picture => dispatch(_onLiked(picture)))
+        .then(picture => dispatch(_onUpdate(picture)))
         .catch(error => dispatch(_onError(error)));
 }
 
 export function CommentPicture(dispatch, pictureId, comment) {
     dispatch(_started());
     commentPicture(pictureId, comment)
-        .then(picture => dispatch(_onLiked(picture)))
+        .then(picture => dispatch(_onUpdate(picture)))
         .catch(error => dispatch(_onError(error)));
 }
 
 export function UpdateCommentPicture(dispatch, pictureId, comment) {
     dispatch(_started());
     updateCommentPicture(pictureId, comment)
-        .then(picture => dispatch(_onLiked(picture)))
+        .then(picture => dispatch(_onUpdate(picture)))
+        .catch(error => dispatch(_onError(error)));
+}
+
+export function BookmarkPicture(dispatch, pictureId) {
+    dispatch(_started());
+    bookmarkPicture(pictureId)
+        .then(picture => dispatch(_onBookmark(picture)))
+        .catch(error => dispatch(_onError(error)));
+}
+
+export function UnbookmarkPicture(dispatch, pictureId) {
+    dispatch(_started());
+    unbookmarkPicture(pictureId)
+        .then(picture => dispatch(_onBookmark(picture)))
         .catch(error => dispatch(_onError(error)));
 }
 
@@ -71,16 +86,16 @@ function _onSuccess(pictures) {
     }
 }
 
-function _onLiked(picture) {
+function _onUpdate(picture) {
     return {
-        type: types.PICTURE_LIKED,
+        type: types.PICTURE_UPDATED,
         payload: picture
     }
 }
 
-function _onComment(picture) {
+function _onBookmark(picture) {
     return {
-        type: types.PICTURE_COMMENTED,
+        type: types.PICTURE_BOOKMARKED,
         payload: picture
     }
 }

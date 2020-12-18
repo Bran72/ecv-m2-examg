@@ -1,6 +1,13 @@
 import { useContext, useState } from 'react';
 import { ApplicationContext } from '../../domain/application.store';
-import {CommentPicture, UpdateCommentPicture, LikePictureById, UnlikePictureById} from '../../domain/picture/picture.actions';
+import {
+    CommentPicture,
+    UpdateCommentPicture,
+    LikePictureById,
+    UnlikePictureById,
+    BookmarkPicture,
+    UnbookmarkPicture
+} from '../../domain/picture/picture.actions';
 import { LikeButton, BookmarkButton } from '../buttons';
 import './Card.css';
 
@@ -38,6 +45,14 @@ export function Card({ picture }) {
         }
     }
 
+    const onBookmark = (pictureId) => {
+        if (state.user.pictures_collection && state.user.pictures_collection.find(pic => pic.picsum_id === picture.id)) {
+            UnbookmarkPicture(dispatch, pictureId)
+        } else {
+            BookmarkPicture(dispatch, pictureId)
+        }
+    }
+
 
     if (!state.user) return null
     return (
@@ -46,7 +61,7 @@ export function Card({ picture }) {
                 <img src={picture.download_url} />
                 <LikeButton onClick={() => { onLike(picture.id) }} isLiked={picture.likedBy && picture.likedBy.find(like => like._id === state.user._id)} />
                 <span className="likes">Likes : {picture.likedBy ? picture.likedBy.length : 0}</span>
-                <BookmarkButton onClick={() => { }} />
+                <BookmarkButton onClick={() => { onBookmark(picture.id) }} isBookmarked={state.user.pictures_collection && state.user.pictures_collection.find(pic => pic.picsum_id === picture.id)} />
             </div>
             <div className="card-body">
                 <h3>

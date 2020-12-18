@@ -1,9 +1,9 @@
 import './Bookmark.css';
 
-export function Bookmark({ onClick }) {
+export function Bookmark({ onClick, isBookmarked }) {
     return (
         <button className="remove" onClick={onClick}>
-            <i className="far fa-bookmark"></i>
+            <i className={`${isBookmarked ? 'fas' : 'far'} fa-bookmark`}></i>
         </button>
     )
 }
