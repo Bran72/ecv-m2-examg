@@ -37,10 +37,10 @@ export function UnlikePictureById(dispatch, pictureId) {
         .catch(error => dispatch(_onError(error)));
 }
 
-export function CommentPicture(dispatch, pictureId) {
+export function CommentPicture(dispatch, pictureId, comment) {
     dispatch(_started());
-    commentPicture(pictureId)
-        .then(picture => dispatch(_onComment(picture)))
+    commentPicture(pictureId, comment)
+        .then(picture => dispatch(_onLiked(picture)))
         .catch(error => dispatch(_onError(error)));
 }
 

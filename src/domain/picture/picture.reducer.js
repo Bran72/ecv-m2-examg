@@ -23,7 +23,6 @@ export default function reducer(state, action) {
                 pictures: [...pictures]
             };
         case types.PICTURE_COMMENTED:
-            console.log('commented')
             return {
                 ...state,
                 pending: false,

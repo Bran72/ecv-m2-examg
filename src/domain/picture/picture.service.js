@@ -53,12 +53,13 @@ export function unlikePicture(pictureID) {
         });
 }
 
-export function commentPicture(pictureID) {
+export function commentPicture(pictureID, comment) {
     return fetch(`/api/pictures/comment/${pictureID}`, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({comment: comment})
     })
         .then(async res => {
             if (res.status !== 200 && res.status !== 201) {

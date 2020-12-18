@@ -20,9 +20,7 @@ export function Card({ picture }) {
 
     const handleSubmit = (e, id) => {
         e.preventDefault();
-        console.log(id)
-        alert("Commentaire: " + form.comment);
-        //CommentPicture(dispatch, id)
+        CommentPicture(dispatch, id, form.comment)
     };
 
     const onLike = (pictureId) => {
