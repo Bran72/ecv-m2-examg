@@ -10,15 +10,19 @@ export function Card({ picture }) {
 
     const onLike = (pictureId) => {
         console.log(pictureId)
+        console.log(state.user)
         LikePictureById(dispatch, pictureId)
     }
+
 
     if (!state.user) return null
     return (
         <div className="card">
             <div className="card-img">
                 <img src={picture.download_url} />
-                <LikeButton onClick={() => { onLike(picture.id) }} isLiked={picture.likedBy && picture.likedBy.find(like => like === state.user._id)} />
+                <LikeButton onClick={() => { onLike(picture.id) }} isLiked={() => {
+                    picture.likedBy && picture.likedBy.find(like => like === state.user._id)
+                }} />
                 <span className="likes">Likes : {picture.likedBy ? picture.likedBy.length : 0}</span>
                 <BookmarkButton onClick={() => { }} />
             </div>

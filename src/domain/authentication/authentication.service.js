@@ -39,7 +39,7 @@ export function login(data) {
 }
 
 export function logout() {
-    // TODO   
+    document.cookie = "auth=; expires= Thu, 01 Jan 1970 00:00:00 UTC";
 }
 
 export function getMe() {
