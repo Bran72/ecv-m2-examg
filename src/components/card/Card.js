@@ -9,6 +9,7 @@ export function Card({ picture }) {
     const { state, dispatch } = useContext(ApplicationContext);
 
     const onLike = (pictureId) => {
+        console.log(pictureId)
         LikePictureById(dispatch, pictureId)
     }
 
