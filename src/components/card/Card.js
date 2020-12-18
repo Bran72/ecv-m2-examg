@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { ApplicationContext } from '../../domain/application.store';
-import {CommentPicture, LikePictureById, UnlikePictureById} from '../../domain/picture/picture.actions';
+import {CommentPicture, UpdateCommentPicture, LikePictureById, UnlikePictureById} from '../../domain/picture/picture.actions';
 import { LikeButton, BookmarkButton } from '../buttons';
 import './Card.css';
 
@@ -18,9 +18,16 @@ export function Card({ picture }) {
         })
     };
 
-    const handleSubmit = (e, id) => {
+    const handleSubmit = (e, picture) => {
         e.preventDefault();
-        CommentPicture(dispatch, id, form.comment)
+
+        let commentExist = false
+        picture.comments.map(comment => {
+            if (comment.by._id === state.user._id) commentExist = true
+        })
+
+        if (commentExist) UpdateCommentPicture(dispatch, picture.id, form.comment)
+        else CommentPicture(dispatch, picture.id, form.comment)
     };
 
     const onLike = (pictureId) => {
@@ -54,7 +61,7 @@ export function Card({ picture }) {
                         )}
                     </ul>
                     <input type="text" onChange={handleChange} />
-                    <button onClick={(e) => handleSubmit(e, picture.id)} type="submit">
+                    <button onClick={(e) => handleSubmit(e, picture)} type="submit">
                         Commenter
                     </button>
                 </div>

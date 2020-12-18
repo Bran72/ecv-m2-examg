@@ -72,3 +72,23 @@ export function commentPicture(pictureID, comment) {
             return res.json()
         });
 }
+
+export function updateCommentPicture(pictureID, comment) {
+    return fetch(`/api/pictures/comment/${pictureID}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({comment: comment})
+    })
+        .then(async res => {
+            if (res.status !== 200 && res.status !== 201) {
+                const { message } = await res.json()
+                throw new Error(message)
+            }
+            return res
+        })
+        .then(res => {
+            return res.json()
+        });
+}

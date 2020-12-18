@@ -1,4 +1,11 @@
-import { getPictures, getPictureById, likePicture, unlikePicture, commentPicture } from './picture.service';
+import {
+    getPictures,
+    getPictureById,
+    likePicture,
+    unlikePicture,
+    commentPicture,
+    updateCommentPicture
+} from './picture.service';
 
 export const types = {
     PICTURE_STARTED: 'PICTURE_STARTED',
@@ -40,6 +47,13 @@ export function UnlikePictureById(dispatch, pictureId) {
 export function CommentPicture(dispatch, pictureId, comment) {
     dispatch(_started());
     commentPicture(pictureId, comment)
+        .then(picture => dispatch(_onLiked(picture)))
+        .catch(error => dispatch(_onError(error)));
+}
+
+export function UpdateCommentPicture(dispatch, pictureId, comment) {
+    dispatch(_started());
+    updateCommentPicture(pictureId, comment)
         .then(picture => dispatch(_onLiked(picture)))
         .catch(error => dispatch(_onError(error)));
 }
