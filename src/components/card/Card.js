@@ -3,7 +3,6 @@ import { ApplicationContext } from '../../domain/application.store';
 import {CommentPicture, LikePictureById, UnlikePictureById} from '../../domain/picture/picture.actions';
 import { LikeButton, BookmarkButton } from '../buttons';
 import './Card.css';
-import {logger} from "../../domain/common.reducer";
 
 
 export function Card({ picture }) {
