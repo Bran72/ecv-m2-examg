@@ -22,6 +22,13 @@ export default function reducer(state, action) {
                 pending: false,
                 pictures: [...pictures]
             };
+        case types.PICTURE_COMMENTED:
+            console.log('commented')
+            return {
+                ...state,
+                pending: false,
+                pictures: action.payload
+            };
         case types.PICTURE_FAILED:
             return {
                 ...state,

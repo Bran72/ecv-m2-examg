@@ -52,3 +52,19 @@ export function unlikePicture(pictureID) {
             return res.json()
         });
 }
+
+export function commentPicture(pictureID) {
+    return fetch(`/api/pictures/${pictureID}/unlike`, {
+        method: 'PUT'
+    })
+        .then(async res => {
+            if (res.status !== 200 && res.status !== 201) {
+                const { message } = await res.json()
+                throw new Error(message)
+            }
+            return res
+        })
+        .then(res => {
+            return res.json()
+        });
+}
